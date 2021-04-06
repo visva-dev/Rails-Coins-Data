@@ -1,33 +1,32 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Cryptos</h1>
-
-<table>
+<table class="table table-striped table-hover table-bordered">
   <thead>
     <tr>
+      <th>Name</th>
       <th>Symbol</th>
-      <th>User</th>
       <th>Cost per</th>
       <th>Amount owned</th>
-      <th colspan="3"></th>
     </tr>
   </thead>
-
   <tbody>
     <% @cryptos.each do |crypto| %>
-      <tr>
-        <td><%= crypto.symbol %></td>
-        <td><%= crypto.user_id %></td>
-        <td><%= crypto.cost_per %></td>
-        <td><%= crypto.amount_owned %></td>
-        <td><%= link_to 'Show', crypto %></td>
-        <td><%= link_to 'Edit', edit_crypto_path(crypto) %></td>
-        <td><%= link_to 'Destroy', crypto, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <% if crypto.user_id == current_user.id %>
+        <% if crypto.symbol %>
+          <% crypto.symbol = crypto.symbol.upcase %>
+        <% end %>
+        <tr>
+          <% for x in @lookup_crypto['data'] %>
+            <% if crypto.symbol == x['symbol'] %>
+              <td><%= link_to x['name'], crypto %></td>
+            <% end %>
+          <% end %>
+          <td><%= crypto.symbol %></td>
+          <td><%= crypto.cost_per %></td>
+          <td><%= crypto.amount_owned %></td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>
-
 <br>
-
-<%= link_to 'New Crypto', new_crypto_path %>
+<%= link_to 'New Crypto', new_crypto_path, class: 'btn btn-success'%>
