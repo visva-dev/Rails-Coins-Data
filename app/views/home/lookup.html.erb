@@ -1,0 +1,16 @@
+<h4>Check single crypto info</h4>
+<%= form_tag home_lookup_path, :method => 'POST' do %>
+  <%= text_field_tag 'sym', nil, placeholder: 'Enter crypto symbol', size: 50 %>
+  <%= submit_tag 'Lookup Stock Quote' %>
+<% end %>
+<br>
+<% if @symbol%>
+  <% for x in @lookup_coin['data'] %>
+    <% if @symbol == x['symbol'] %>
+      <%= x['name'] %>: <%= x['quote']['USD']['price'] %>
+      <br>
+      Rank: <%= x['rank'] %>
+      <br>
+    <% end %>
+  <% end %>
+<% end %>
