@@ -6,7 +6,7 @@ class CryptosController < ApplicationController
   # GET /cryptos or /cryptos.json
   def index
     @cryptos = Crypto.all
-    @url = "https://sandbox-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?CMC_PRO_API_KEY=#{Rails.application.credentials.coins[:coins_api_key]}&start=1&limit=5000&convert=USD"
+    @url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?CMC_PRO_API_KEY=#{Rails.application.credentials.coins[:coins_api_key]}&start=1&limit=5000&convert=USD"
     @uri = URI(@url)
     @response = Net::HTTP.get(@uri)
     @lookup_crypto = JSON.parse(@response)
@@ -16,7 +16,7 @@ class CryptosController < ApplicationController
   # GET /cryptos/1 or /cryptos/1.json
   def show
     @cryptos = Crypto.all
-    @url = "https://sandbox-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?CMC_PRO_API_KEY=#{Rails.application.credentials.coins[:coins_api_key]}&start=1&limit=5000&convert=USD"
+    @url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?CMC_PRO_API_KEY=#{Rails.application.credentials.coins[:coins_api_key]}&start=1&limit=5000&convert=USD"
     @uri = URI(@url)
     @response = Net::HTTP.get(@uri)
     @show_crypto = JSON.parse(@response)
